@@ -37,6 +37,10 @@ const routes: RouteRecord[] = [
     path: '/heat-now',
     lazy: () => import('./pages/heat-now')
   },
+  {
+    path: '/error',
+    lazy: () => import('./pages/error')
+  },
 ]
 
 const routesWithLayout = [{

@@ -1,11 +1,11 @@
 import React, { Suspense, FC } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Head } from 'vite-react-ssg';
 import { Provider } from 'react-redux';
 import store from './store/index';
 import { QueryClient, QueryClientProvider, useQuery, UseQueryResult } from "@tanstack/react-query";
-import { CircularProgress, Box  } from '@mui/material';
+import { CircularProgress, Box } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './store';
 import { getUniversal } from './api/dataHub';
@@ -34,11 +34,21 @@ interface PageWrapperProps {
 const PageWrapper: FC<PageWrapperProps> = ({ children }) => {
   const title = useSelector((state: AppState) => state.header.title);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getDataHubShema = async ({ queryKey }: { queryKey: any[] }) => {
     const [, params] = queryKey;
-    const response = await getUniversal('GetMetaData', params);
-    return response;
+    try {
+      const response = await getUniversal('GetMetaData', params);
+      if (!response.result.data) {
+        navigate('/error')
+      }
+      return response;
+    } catch (error) {
+      console.log(error);
+      navigate('/error')
+      return null;
+    }
   };
 
   const { isLoading, isError, data }: UseQueryResult<any> = useQuery({
@@ -50,7 +60,7 @@ const PageWrapper: FC<PageWrapperProps> = ({ children }) => {
   });
 
   useEffect(() => {
-    if (data) {
+    if (data && data.result && data.result.data) {
       dispatch(setScheme(data.result.data));
     }
   }, [data]);
@@ -63,15 +73,15 @@ const PageWrapper: FC<PageWrapperProps> = ({ children }) => {
         <title>{title}</title>
       </Head>
       <ThemeProvider theme={theme}>
-          {isLoading ? (
-            <div className='app__preloaded'><CircularProgress /></div>
-          ) : isError ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-              <span>Ошибка при загрузке данных</span>
-            </Box>
-          ) : (
-            children
-          )}
+        {isLoading ? (
+          <div className='app__preloaded'><CircularProgress /></div>
+        ) : isError ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <span>Ошибка при загрузке данных</span>
+          </Box>
+        ) : (
+          children
+        )}
       </ThemeProvider>
 
     </>
