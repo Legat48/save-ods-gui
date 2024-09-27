@@ -1,0 +1,72 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  list-style: none;
+  text-decoration: none;
+}
+
+img,
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+svg,
+path {
+  @include transition;
+}
+
+html {
+  --vw: 100vw;
+  @media (min-width: #{$maxvw + 1}px) {
+    --vw : #{$maxvw}px;
+  }
+  @media (max-width: #{$minvw}px) {
+    --vw : #{$minvw}px;
+  }
+}
+
+html body {
+  position: relative;
+  margin: 0 auto;
+  max-width: #{$maxvw}px;
+  min-width: #{$minvw}px !important;
+  font-family: 'pt', sans-serif !important;
+  color: var(--color-text-1);
+  background-color:var(--color-bg-1);
+}
+html { overflow-y: auto !important}
+
+p,
+h1,
+h2,
+h3,
+li,
+ul,
+a {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+// паттерн для скрытия
+div .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}
+
+.deactive {
+  pointer-events: none;
+}

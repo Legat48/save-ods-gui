@@ -1,0 +1,199 @@
+.card-ems {
+  display: flex;
+  flex-direction: column;
+  gap:8px;
+  padding: 8px;
+  margin-bottom: 10px;
+  // border: 2px solid var(--color-border-1-dark);
+  border: 2px solid transparent;
+  border-radius: 4px;
+  color: var(--color-text-1);
+  background-color: var(--color-bg-1);
+  box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.15);
+  @include transition;
+  &_active {
+    border: 2px solid var(--color-border-3);
+  }
+  &__title-wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  &__dimension {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  &__title {
+  }
+  &__wrap {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  &__sub-title {
+    margin-bottom: 8px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  &__wrap-label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    border-radius: 4px;
+    padding: 12px 8px 8px;
+    border: 2px solid var(--color-border-1-dark);
+    width: 270px;
+    background-color: var(--color-bg-white-1);
+    @include transition;
+    &_ok {
+      border: 2px solid var(--color-border-3);
+      background-color: var(--color-update-1);
+      .card-ems__label-title {
+        background-color: var(--color-update-1);
+      }
+    }
+  }
+  &__label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border-1-dark);
+    width: 100%;
+    padding: 0px 12px;
+    height: 28px;
+    font-weight: 500;
+    background-color: var(--color-btn-white-1);
+    @include transition;
+    cursor: text;
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    path {
+      fill: var(--color-border-1-dark);
+    }
+    &_big {
+      width: 100%;
+    }
+    &_switch {
+      padding: 5px 3px;
+      height: auto;
+      // min-height: 65px;
+    }
+    &:focus-within {
+      border: 1px solid var(--color-border-3);
+
+      .card-ems__label-input,
+      .card-ems__label-title  {
+        color: var(--color-border-3);
+      }
+    }
+
+  }
+  &__label-title {
+      position: absolute;
+      inset: -10px auto auto 6px;
+      z-index: 2;
+      padding: 0 4px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-border-1-dark);
+      background-color: var(--color-text-white-1);
+      @include transition;
+  }
+  &__label-input {
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    color: var(--color-text-1);
+    cursor: text;
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 5px;
+    margin-top: auto;
+  }
+  &__footer-text {
+    max-width: 400px;
+  }
+  &__date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &__item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.15);
+    background-color: var(--color-btn-1);
+    @include transition;
+
+    &:hover {
+      background-color: var(--color-active);
+      box-shadow: 0 0 0 3px var(--color-btn-1);
+    }
+
+    &:active {
+      background-color: var(--color-active);
+      box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.15);
+    }
+    &_hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &_mla {
+      margin-left: auto;
+    }
+
+    &_ok {
+      background-color: var(--color-ready);
+    }
+
+    &_copy {
+      position: absolute;
+      z-index: 4px;
+      inset: 4px 4px auto auto;
+      width: 25px;
+      height: 25px;
+      min-width: 25px;
+      min-height: 25px;
+    }
+  }
+  &__submit-svg {
+    width: 17px;
+    height: 13px;
+  }
+  &__icon-copy {
+    width: 20px;
+    height: 20px;
+  }
+}

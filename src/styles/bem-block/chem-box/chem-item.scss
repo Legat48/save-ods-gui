@@ -1,0 +1,66 @@
+.chem-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  border: 2px solid var(--color-border-1);
+  border-radius: 4px;
+  padding: 10px 0 0 0;
+  width: 70px;
+  height: 210px;
+  background-color: #fff;
+
+  &__title {
+    position: absolute;
+    inset: -10px auto auto 6px;
+    z-index: 2;
+    padding: 0 4px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-1);
+    background-color: var(--color-text-white-1);
+    @include transition;
+  }
+
+  &__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 14px;
+    &_alert {
+      font-weight: 700;
+      color: var(--color-error);
+      text-decoration: underline;
+    }
+  }
+
+  &__wrap-img {
+    position: relative;
+    border-radius: 4px;
+    height: 100%;
+    width: 50px;
+    &_aim {
+      margin-left: 10px;
+    }
+  }
+
+  &__wrap-hidden {
+    border-radius: 4px;
+    height: 100%;
+    width: 50px;
+    overflow: hidden;
+    box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  &__icon {
+    position: absolute;
+    inset:  0 auto auto  -12px;
+    z-index: 2;
+    height: 12px;
+    width: 12px;
+    transform: translateY(50%);
+  }
+}

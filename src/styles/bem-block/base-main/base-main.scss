@@ -1,0 +1,23 @@
+.base-main {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  &__list {
+    margin-right: auto !important;
+  }
+  &__link {
+    gap: 10px;
+  }
+  &__icon {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+  }
+  &__text {
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--color-text-2);
+    text-decoration: underline;
+  }
+}

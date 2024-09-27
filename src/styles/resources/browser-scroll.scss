@@ -1,0 +1,40 @@
+/* W3C стандарт */
+* {
+  scrollbar-width: thin; /* Или auto, если вы хотите, чтобы скроллбар был шире */
+  scrollbar-color: var(--color-scroll) var(--color-bg-1); /* Цвет фона и цвет полосы прокрутки */
+}
+
+/* Для всех браузеров, поддерживающих CSS Variables */
+*::-webkit-scrollbar {
+  width: 8px; /*ширина скроллбара */
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-bg-1); /* Цвет фона скроллбара */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-scroll); /* Цвет полосы прокрутки */
+  border-radius: 5px; /* Радиус скругления углов */
+}
+
+/* Для Firefox */
+* {
+  scrollbar-width: auto; /* Или auto, если вы хотите, чтобы скроллбар был шире */
+  scrollbar-color: var(--color-scroll) var(--color-bg-1);
+  scroll-behavior: smooth;
+  //  Цвет фона и цвет полосы прокрутки */
+}
+
+*::-moz-scrollbar {
+  width: 8px; /* Ширина скроллбара */
+}
+
+*::-moz-scrollbar-track {
+  background: var(--color-bg-1); /* Цвет фона скроллбара */
+}
+
+*::-moz-scrollbar-thumb {
+  background-color: var(--color-scroll); /* Цвет полосы прокрутки */
+  border-radius: 5px; /* Радиус скругления углов */
+}
