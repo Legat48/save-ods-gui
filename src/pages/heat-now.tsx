@@ -46,7 +46,7 @@ export function HeatNow() {
               }
             } else {
               console.error('Unexpected error:', err);
-              window.location.reload();
+              // window.location.reload();
             }
           }
         }

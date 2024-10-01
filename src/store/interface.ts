@@ -3,6 +3,7 @@ import { eqStatusArr } from './../zod-scheme/eq-status';
 export interface HeaderState {
   headerTitle: string;
   title: string;
+  showHeader: boolean,
 }
 export interface eqStatusState {
   eqStatus: typeof eqStatusArr,

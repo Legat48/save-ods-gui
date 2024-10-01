@@ -6,3 +6,4 @@
 // export const apiUrl = '/'
 export const apiUrl = 'https://odskc2.nlmk:8181/'
 
+

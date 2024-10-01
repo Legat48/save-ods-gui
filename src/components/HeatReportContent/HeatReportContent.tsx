@@ -13,7 +13,7 @@ interface DataProps {
   data: Heat[]
 }
 
-export const ApkContent: FC<DataProps> = ({ data }) => {
+export const HeatReportContent: FC<DataProps> = ({ data }) => {
 
   useEffect(() => {
     if (data) {
@@ -21,7 +21,8 @@ export const ApkContent: FC<DataProps> = ({ data }) => {
   }, [data])
 
   return (
-    <div className="stat-wrap">
+    <div className="heat-report">
+      <h1>ЭКРАН НАХОДИТСЯ НА СТАДИИ РАЗРАБОТКИ!</h1>
       {data && data.length > 0 && data.map((heat: Heat, index: number) => (
         <div key={index}>
           <div className="">

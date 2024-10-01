@@ -4,6 +4,7 @@ const todoSlice = createSlice({
   name: "headerTitle",
   initialState: {
     headerTitle: 'ОДС',
+    showHeader: true,
     title: 'ОДС'
   },
   reducers: {
@@ -13,9 +14,12 @@ const todoSlice = createSlice({
     setTitle: (state, action: PayloadAction<{ title: string }>) => {
       state.title = action.payload.title;
     },
+    setShowHeader: (state, action: PayloadAction<{ value: boolean }>) => {
+      state.showHeader = action.payload.value;
+    },
   },
 });
 
-export const { setHeaderTitle, setTitle } = todoSlice.actions;
+export const { setHeaderTitle, setTitle, setShowHeader } = todoSlice.actions;
 
 export default todoSlice.reducer;

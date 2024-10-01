@@ -9,6 +9,7 @@ interface BaseDropdownProps {
   value?: string | number | object | boolean | Array<any> | null;
   drop?: boolean;
   scheme?: { [key: string]: string };
+  keyTitle?: string;
 }
 
 export const BaseDropdown: FC<BaseDropdownProps> = ({
@@ -18,6 +19,7 @@ export const BaseDropdown: FC<BaseDropdownProps> = ({
   title,
   value,
   drop = false,
+  keyTitle = '',
 }) => {
   const [open, setOpen] = useState(true);
   const scheme = useSelector((state: any) => {
@@ -30,6 +32,11 @@ export const BaseDropdown: FC<BaseDropdownProps> = ({
   const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
   };
+  const funcKeyTitle = (keyTitle: any, key: any) => {
+    const oldKey = keyTitle ? `${keyTitle}_${key}` : key
+    // console.log(oldKey)
+    return oldKey
+  }
 
   const infoKeyName = (key: string) => {
     // Implement your own logic for getting the info key name
@@ -65,9 +72,14 @@ export const BaseDropdown: FC<BaseDropdownProps> = ({
         )}
         <span className="dropdown__btn-text dropdown__btn-text_bold">{`${title}: `}</span>
                 {typeof value !== 'object' && <span className="dropdown__btn-text">{value}</span>}
-        {methodName && !!scheme && scheme[`${title}`.toLowerCase()] && (
-          <div className="dropdown__text">{scheme[`${title}`.toLowerCase()]}</div>
-        )}
+        {/* {methodName && !!scheme && scheme[`${keyTitle}` || scheme[`${title}`]] && (
+          <div className="dropdown__text">{scheme[`${keyTitle}`] || scheme[`${title}`]}</div>
+        )} */}
+        {methodName && !!scheme && (
+        <div className="dropdown__text">
+          {scheme[`${keyTitle}`] || scheme[`${title}`]}
+        </div>
+      )}
         {methodName && !!scheme && scheme[`${value}`.toLowerCase()] && (
           <div className="dropdown__text">{scheme[`${value}`.toLowerCase()]}</div>
         )}
@@ -81,6 +93,7 @@ export const BaseDropdown: FC<BaseDropdownProps> = ({
               colorType={colorType + 1}
               drop={true}
               json={item || {}}
+              keyTitle={`${keyTitle}`}
               title={`Index ${index}`}
             />
           ))}
@@ -95,6 +108,7 @@ export const BaseDropdown: FC<BaseDropdownProps> = ({
               methodName={methodName}
               json={item || {}}
               title={key}
+              keyTitle={`${funcKeyTitle(keyTitle, key)}`}
               drop={Array.isArray(item) || typeof item === 'object'}
               value={Array.isArray(item) ? `Array length: ${item.length}` : typeof item === 'object' && item !== null ? item : String(item)}
             />

@@ -1,37 +1,11 @@
 import React from 'react';
 import { Box, Typography, Tooltip } from '@mui/material';
 import { ChemUnitParsed } from '../ApkContent/interface'
+import { useChemCalculations } from './useChemCalculations';
 
 
 export const ChemItem: React.FC<ChemUnitParsed> = ({ min, max, value, aim, title }) => {
-  // Рассчитываем положение и цвет
-  let percentage = ((value - min) / (max - min)) * 100;
-  if (percentage <= 6) {
-    percentage = 6;
-  }
-  if (percentage > 94) {
-    percentage = 94;
-  }
-  const interpolateColor = (value: number, min: number, max: number, aim: number | null): string => {
-    const redColor = [255, 55, 60]; // RGB для #fe373c (красный)
-    const greenColor = [42,	186, 74]; // RGB для #2aba4a (зелёный)
-
-    // Если aim null, то берем среднее значение между min и max
-    const target = aim !== null ? aim : (min + max) / 2;
-    const value1 = target + (max - target) / 2
-    const value2 = target - (target - min) / 2
-    // Проверяем, близко ли значение к целевому значению
-    if ((value1 > value && value > target) || (value2 < value && value < target)) {
-      return `rgb(${greenColor[0]}, ${greenColor[1]}, ${greenColor[2]})`; // Зеленый
-    } else {
-      return `rgb(${redColor[0]}, ${redColor[1]}, ${redColor[2]})`; // Красный
-    }
-};
-  const backgroundColor = interpolateColor(value, min, max, aim);
-  let aimPosition = 50
-  if (aim) {
-    aimPosition = 100 - (((aim - min) / (max - min)) * 100);
-  }
+  const { percentage, backgroundColor, aimPosition } = useChemCalculations(value, min, max, aim);
 
   return (
     <div className='chem-item'>
@@ -76,7 +50,7 @@ export const ChemItem: React.FC<ChemUnitParsed> = ({ min, max, value, aim, title
               transform: 'translateY(50%)',
             }}
           >
-            {value}
+            {parseFloat(value.toFixed(5))}
           </Typography>
         </div>
 

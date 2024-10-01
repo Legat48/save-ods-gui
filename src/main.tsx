@@ -38,6 +38,10 @@ const routes: RouteRecord[] = [
     lazy: () => import('./pages/heat-now')
   },
   {
+    path: '/heat-report',
+    lazy: () => import('./pages/heat-report')
+  },
+  {
     path: '/error',
     lazy: () => import('./pages/error')
   },

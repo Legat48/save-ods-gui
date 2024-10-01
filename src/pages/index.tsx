@@ -1,7 +1,7 @@
 
 import { MenuList, MenuItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { setHeaderTitle, setTitle } from '../store/header';
+import { setHeaderTitle, setTitle, setShowHeader } from '../store/header';
 import { useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ export function MainPage() {
   useEffect(() => {
     dispatch(setHeaderTitle({ title: 'ОДС | Главная страница' }))
     dispatch(setTitle({ title: 'ОДС | Главная страница' }))
+    dispatch(setShowHeader({ value: true}))
   }, []); // Пустой массив означает, что эффект вызывается только при монтировании
 
   return (
@@ -51,6 +52,10 @@ export function MainPage() {
           <MenuItem className='base-main__link' component={RouterLink} to={`/heat-now/`}>
             <DateSvg className='base-main__icon' />
             <span className='base-main__text'>Текущие плавки</span>
+          </MenuItem>
+          <MenuItem className='base-main__link' component={RouterLink} to={`/heat-report/`}>
+            <DateSvg className='base-main__icon' />
+            <span className='base-main__text'>Отчет по плавке</span>
           </MenuItem>
         </MenuList>
       </div>

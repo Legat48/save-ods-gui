@@ -38,7 +38,10 @@ export function createTable(heatArr: Heat[]): any {
 
   return sortedArray;
 }
-
+/**
+ * @param createNowArr -функция вернет список плавок у которых процесс не завершен (они находятся на оборудовании)
+ * @returns
+*/
 export function createNowArr(heatArr: Heat[]): any {
   const arr = new Set<string>();
   heatArr.forEach((e) => {

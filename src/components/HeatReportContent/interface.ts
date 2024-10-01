@@ -5,7 +5,8 @@ export interface ChemUnitParsed {
   aim: number | null;
   value: number
 }
-
-export interface ChemAsObject {
-  [key: string]: ChemUnitParsed;
+export interface labelArrItem {
+  title: string;
+  value: string | number;
+  maxWidth: number;
 }

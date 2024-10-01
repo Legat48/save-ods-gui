@@ -1,21 +1,19 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setHeaderTitle, setTitle, setShowHeader } from '../store/header';
+import { setHeaderTitle, setTitle } from '../store/header';
 
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { getUniversal } from '../api/dataHub';
 import { CircularProgress } from '@mui/material';
-import { ApkContent } from '../components/ApkContent';
+import { HeatReportContent } from '../components/HeatReportContent';
 
 
 
 export function ApkPage() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setHeaderTitle({ title: 'Агрегат печь-ковш' }))
-    dispatch(setTitle({ title: 'АПК | ОДС' }))
-    dispatch(setShowHeader({ value: false}))
-
+    dispatch(setHeaderTitle({ title: 'Отчет по плавке' }))
+    dispatch(setTitle({ title: 'Отчет плавки | ОДС' }))
   }, []); // Пустой массив означает, что эффект вызывается только при монтировании
 
   interface Process {
@@ -24,7 +22,6 @@ export function ApkPage() {
     proc_end: string;
     operation: any[];
   }
-  type rcProccess = Omit<Process, 'operation'>;
 
   const getDataHubShema = async ({ queryKey }: { queryKey: any[] }) => {
     const [, params] = queryKey;
@@ -40,13 +37,6 @@ export function ApkPage() {
             const response = await getUniversal('GetHeatData', [{ key: 'p_heat_no', value: item.heatNo }]);
             if (response.result.data.processes && response.result.data.processes.length > 0) {
               response.result.data.processes.forEach((j: Process) => {
-                if (['УПК1', 'УПК2', 'УПК2'].includes(j.unit)) {
-                  newArr.add(response.result.data);
-                }
-              })
-            }
-            if (response.result.data['scheduled processes'] && response.result.data['scheduled processes'].length > 0){
-              response.result.data.processes.forEach((j: rcProccess) => {
                 if (['УПК1', 'УПК2', 'УПК2'].includes(j.unit)) {
                   newArr.add(response.result.data);
                 }
@@ -73,7 +63,7 @@ export function ApkPage() {
     <div className="content__wrap">
       {isLoading && !data && <div className='app__preloaded'><CircularProgress></CircularProgress></div>}
       {isError && <p>Произошла ошибка</p>}
-      {data && (<ApkContent data={data}></ApkContent>)}
+      {data && (<HeatReportContent data={data}></HeatReportContent>)}
     </div>
   )
 }

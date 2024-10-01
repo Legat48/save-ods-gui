@@ -1,4 +1,3 @@
-import exp from 'constants';
 import { z } from 'zod';
 
 export const heatTask = z.object({ //задание на разливку
@@ -76,26 +75,61 @@ export const chemicalAim = z.object({ // Целевая химия
   Pb: z.number().nullable().optional(), // Свинец
 })
 export const handling = z.object({ // обработка
-  type: z.string().nullable(), // Значение характеристики
-  sections: z.string().nullable(), // Место регистрации манипуляции
-  hdl_begin: z.string().nullable().optional(), // Дата-время начала выполнения манипуляции
+  type: z.string(), // Значение характеристики
+  sections: z.string(), // Место регистрации манипуляции
+  hdl_begin: z.string(), // Дата-время начала выполнения манипуляции
   hdl_end: z.string().nullable().optional(), // Дата-время завершения выполнения манипуляции
   SCALES_NO: z.number().nullable().optional(), // Номер весов
   WGHT_MODE: z.number().nullable().optional(), // Миксер. Задание на нали
   W_MODE: z.string().nullable().optional(), // Режим взвешивания в миксерном отделении
   W_B_HM: z.number().nullable().optional(), // Вес ЧЗК брутто,т
+  W_T_HM: z.number().nullable().optional(), // Вес тары ЧЗК,т
   NET_WEIGHT: z.number().nullable().optional(), // Вес нетто
+  W_IRON: z.number().nullable().optional(), // Вес чугуна
+  T_BEFORE_TMT: z.number().nullable().optional(), // Температура до обработки
+  S_BEFORE_TMT: z.number().nullable().optional(), // Сера до обработки
+  S_AIM: z.number().nullable().optional(), // Целевая сера
+  CALC_LIME: z.number().nullable().optional(), // Расчетное значение извести
+  CALC_MG: z.number().nullable().optional(), // Расчетное значение магния
+  HM_LOT_NO: z.number().nullable().optional(), // Номер налива
+  INJ_NO: z.number().nullable().optional(), // Порядковый номер инжекции
+  SQ_LIME: z.number().nullable().optional(), // Суммарный расход извести, кг
+  LANCE_NO: z.number().nullable().optional(), // Номер фурмы
+  LANCE_A: z.number().nullable().optional(), // Номер фурмы А
+  DUR_A: z.number().nullable().optional(), // Стойкость фурмы A
+  LANCE_B: z.number().nullable().optional(), // Номер фурмы B
+  DUR_B: z.number().nullable().optional(), // Стойкость фурмы B
+  WORKTIME_A: z.number().nullable().optional(), // Общее горячее время работы фурмы А за кампанию, мин
+  WORKTIME_B: z.number().nullable().optional(), // Общее горячее время работы фурмы B за кампанию, мин
+  DIVERTER_MODE: z.string().nullable().optional(), // Режим дивертера
+  N_FUR: z.string().nullable().optional(), // Код активной фурмы
+  BUB_CNT: z.number().nullable().optional(), // Порядковый номер отдува шлака
+  C_MAT: z.string().nullable().optional(), // Код отданного материала КЦ-2
+  SCRAP_WEIGHT1: z.number().nullable().optional(), // Вес лома 1
+  SCB_ID1: z.number().nullable().optional(), // Ид лотка 1
+  SBC_ID2: z.number().nullable().optional(), // Ид лотка 2
+  SUM_SCRAP_WEIGHT: z.number().nullable().optional(), // Суммарный вес лома, т
+  SKIM_CNT: z.number().nullable().optional(), // Порядковый номер скачивания шлака
+  VOL_AR: z.number().nullable().optional(), // Суммарный расход аргона
+  VOL_N2: z.number().nullable().optional(), // Суммарный расход азота
+  VOL_O2: z.number().nullable().optional(), // Суммарный расход кислорода
+  N_PB: z.string().nullable().optional(), // Номер бункера отдачи сыпучих
+  MAT_WEIGHT: z.number().nullable().optional(), // Порядковый номер скачивания шлака
+  TEMPERATURE: z.number().nullable().optional(), // Температура
+  AL: z.number().nullable().optional(), // Химсостав стали(требования) (Al)
+  MANUAL_INPUT: z.number().nullable().optional(), // Химсостав стали(требования) (Al)
+  FESI65: z.number().nullable().optional(), // Рекомендация по FeSi65
   WGHT_TASK: z.number().nullable().optional(), // Миксер. Задание на налив
   W_FESI_AIM: z.number().nullable().optional() // Вес FeSi в ЧЗК (задание) (КЦ-2, Миксер)
 })
-export const processItem = z.object({ // Выполненная обработки
+export const processItem = z.object({ // Выполненные обработки
   unit: z.string().nullable(), // Агрегат слежения
   id2: z.string().nullable().optional(), // Идентификатор уровня 2
   proc_begin: z.string().nullable().optional(), // Дата, время начала процесса
   proc_end: z.string().nullable().optional(), // Дата, время окончания процесса
   handlings: z.array(handling).nullable(), // обработки
 })
-export const scheduledProcesses = z.object({ // Выполненная обработки
+export const scheduledProcesses = z.object({ // Запланированные обработки
   unit: z.string().nullable(), // Агрегат слежения
   proc_begin: z.string().nullable().optional(), // Дата, время начала процесса
   proc_end: z.string().nullable().optional(), // Дата, время окончания процесса
@@ -156,14 +190,14 @@ export const heat = z.object({
   batch_id: z.number(), // id плавки
   heat_no: z.string(), // Номер плавки
   tasks: z.array(heatTask).nullable(),  // Задание на разливку
-  GRADE_BOF: z.string().nullable(),  // Марка стали для KV
-  GRADE_LF: z.string().nullable(),  // Марка стали для УПК
-  GRADE_CCM: z.string().nullable(),  // Марка стали для УНРС
-  STANDARD_BOF: z.string().nullable(),  // Гост для KV
-  STANDARD_LF: z.string().nullable(),  // Гост для УПК
-  STANDARD_CCM: z.string().nullable(),  // Гост для УНРС
+  GRADE_BOF: z.string().nullable().optional(),  // Марка стали для KV
+  GRADE_LF: z.string().nullable().optional(),  // Марка стали для УПК
+  GRADE_CCM: z.string().nullable().optional(),  // Марка стали для УНРС
+  STANDARD_BOF: z.string().nullable().optional(),  // Гост для KV
+  STANDARD_LF: z.string().nullable().optional(),  // Гост для УПК
+  STANDARD_CCM: z.string().nullable().optional(),  // Гост для УНРС
   NOTE_CCM: z.string().nullable().optional(),  // Note для УНРС
-  STEELCODE_BOF1: z.string().nullable(),  // STEEL_CODE для KV1
+  STEELCODE_BOF1: z.string().nullable().optional(),  // STEEL_CODE для KV1
   STEELCODE_CCM: z.string().nullable().optional(),  // STEEL_CODE для УНРС 678
   TECHNOTES_BOF: z.string().nullable().optional(),  // TechNotes для KV
   TECHNOTES_LF: z.string().nullable().optional(),  // TechNotes для УПК
@@ -211,7 +245,7 @@ export type MinMax = z.infer<typeof minMax>;
 export type ChemicalRequirements = z.infer<typeof chemicalRequirements>;
 export type ChemicalAim = z.infer<typeof chemicalAim>;
 export type Handling = z.infer<typeof handling>;
-export type ProcessItem = z.infer<typeof processItem>;
+export type ProcessItemZ = z.infer<typeof processItem>;
 export type ScheduledProcesses = z.infer<typeof scheduledProcesses>;
 export type OperationItem = z.infer<typeof operationItem>;
 export type RsProcess = z.infer<typeof rsProcess>;

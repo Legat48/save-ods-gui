@@ -139,6 +139,7 @@ export const JsonWrapInfo = () => {
               key={key}
               methodName={methodName}
               json={item}
+              keyTitle={key}
               title={key}
               drop={typeof item === 'object'}
               value={typeof item === 'object' ? '' : item}
