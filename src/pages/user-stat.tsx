@@ -21,6 +21,7 @@ export default function UserStatPage() {
   // Получение данных, функция для запроса
   const getData = async ({ queryKey }: { queryKey: any[] }) => {
     const [, params] = queryKey; // params приходит пустым
+    // const responseInfo = await getUniversal('GETPREVIOUSSTAT', params); //за вчера
     const responseInfo = await getUniversal('GETCURRENTSTAT', params);
     const responseUser = await getUniversal('GETUSERLIST', params);
     return [responseInfo, responseUser];

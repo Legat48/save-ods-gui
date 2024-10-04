@@ -6,14 +6,14 @@
   "scripts": {
     "dev": "vite-react-ssg dev",
     "build": "vite-react-ssg build",
-    "compile": "vite-react-ssg build && cd dist && jar -cvf ods-1.1.2.2.war .",
+    "compile": "vite-react-ssg build && cd dist && jar -cvf ods-1.1.2.3.war .",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^3.9.0",
-    "@mui/material": "^5.16.5",
+    "@mui/material": "^6.1.1",
     "@mui/styles": "^6.0.0",
     "@mui/x-date-pickers": "^7.16.0",
     "@reduxjs/toolkit": "^2.2.7",

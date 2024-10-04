@@ -10,3 +10,12 @@ export interface labelArrItem {
   value: string | number;
   maxWidth: number;
 }
+
+export interface Process {
+  unit: string;
+  proc_begin: string;
+  proc_end: string;
+  operation: any[];
+}
+
+export type rcProcess = Omit<Process, 'operation'>;

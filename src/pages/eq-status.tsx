@@ -14,6 +14,7 @@ import { CircularProgress } from '@mui/material';
 export function EqStatusPage() {
   const dispatch = useDispatch();
   const [timestamp, setTimestampInfo] = useState<string>('0');
+  const eqStatus = useSelector((state: AppState) => state.eqStatus.eqStatus);
 
   const getData = async ({ queryKey }: { queryKey: string[] }) => {
     const [, timestamp] = queryKey;
@@ -30,7 +31,6 @@ export function EqStatusPage() {
     refetchInterval: 30000, // Обновлять данные каждую минуту
     refetchIntervalInBackground: true // даже если вкладка не активна
   });
-  const eqStatus = useSelector((state: AppState) => state.eqStatus.eqStatus);
 
   // Установка заголовка страницы
   useEffect(() => {

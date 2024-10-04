@@ -1,5 +1,8 @@
-import { labelArrItem } from './interface';
+import { labelArrItem, Process, rcProcess } from './interface';
 import { Heat } from '../../zod-scheme/heat';
+
+import { getUniversal } from '../../api/dataHub';
+import { useQuery } from "@tanstack/react-query";
 
 export function setHeat(heat: Heat): labelArrItem[] {
   return [
@@ -191,3 +194,62 @@ export function setHeat(heat: Heat): labelArrItem[] {
   ]
 }
 
+export function createNowArr(heatArr: Heat[]): any {
+  const arr = new Set<string>();
+  heatArr.forEach((e) => {
+    if(e.processes) {
+      e.processes.forEach((p) => {
+        if (!p.proc_end) {
+          arr.add(e.heat_no);
+        }
+      })
+    }
+  });
+  return arr;
+}
+
+export function createTableRow(heat: Heat): any {
+  return {
+    heat_no: heat.heat_no,
+  }
+}
+
+export const getDataHubSchema = async ({ queryKey }: { queryKey: any[] }) => {
+  const [, [params, selectedFormats]] = queryKey;
+  const response1 = await getUniversal('GetHeatList', params);
+  const response2 = await getUniversal('GetLastChgHeatList', params);
+  const newArr = new Set();
+
+  if (response1.result.data.length && response2.result.data.length) {
+    const arr = [...response1.result.data, ...response2.result.data];
+
+    for (let item of arr) {
+      const { heatNo } = item;
+
+      if (heatNo && heatNo.length > 4) {
+        try {
+          const response = await getUniversal('GetHeatData', [{ key: 'p_heat_no', value: heatNo }]);
+
+          const addDataIfValid = (processes: (Process | rcProcess)[]) => {
+            if (processes?.length) {
+              processes.forEach((j: Process | rcProcess) => {
+                if (selectedFormats.includes(j.unit)) {
+                  newArr.add(response.result.data);
+                }
+              });
+            }
+          };
+
+          addDataIfValid(response.result.data.processes);
+          addDataIfValid(response.result.data['scheduled processes']);
+        } catch (e) {
+          console.error(`Ошибка получения информации по плавке ${heatNo}`);
+        }
+      }
+    }
+
+    return [...newArr];
+  }
+
+  return [response1, response2];
+};

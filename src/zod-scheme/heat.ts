@@ -110,7 +110,7 @@ export const handling = z.object({ // обработка
   SBC_ID2: z.number().nullable().optional(), // Ид лотка 2
   SUM_SCRAP_WEIGHT: z.number().nullable().optional(), // Суммарный вес лома, т
   SKIM_CNT: z.number().nullable().optional(), // Порядковый номер скачивания шлака
-  VOL_AR: z.number().nullable().optional(), // Суммарный расход аргона
+  VOL_AR: z.number().nullable().optional(), // Суммарный расход аргон
   VOL_N2: z.number().nullable().optional(), // Суммарный расход азота
   VOL_O2: z.number().nullable().optional(), // Суммарный расход кислорода
   N_PB: z.string().nullable().optional(), // Номер бункера отдачи сыпучих

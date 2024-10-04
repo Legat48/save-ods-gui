@@ -7,11 +7,12 @@ import path from 'path';
 
 
 // https://vitejs.dev/config/
+
 export default defineConfig({
   base: '/ods/',
-  // optimizeDeps: {
-  //   include: ["@mui/x-date-pickers/AdapterDayjs"],
-  // },
+  optimizeDeps: {
+    include: ['@mui/material', '@mui/x-date-pickers/AdapterDayjs',],
+  },
   plugins: [
     svgr(),
     mdx(),
@@ -28,6 +29,6 @@ export default defineConfig({
   ssgOptions: {
     mode: 'nested',
     includeAllRoutes: true,
-    dirStyle: 'nested'
-  }
-})
+    dirStyle: 'nested',
+  },
+});

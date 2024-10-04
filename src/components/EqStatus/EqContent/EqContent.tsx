@@ -33,6 +33,17 @@ export const EqContent: FC<EqContentProps> = ({ eqStatus }) => {
   const keyPercentArr: string[] = [];
   const keyDateArr: string[] = [];
   const editRow = false;
+  const sortEquipment = (equipment: any[]) => {
+    return equipment.sort((a, b) => {
+      const aIndex = parseInt(a.eq_name.match(/(\d+)$/)[0], 10);
+      const bIndex = parseInt(b.eq_name.match(/(\d+)$/)[0], 10);
+      if (a.eq_type === 6) {
+        return aIndex - bIndex;
+      } else {
+        return a.eq_name.localeCompare(b.eq_name, undefined, { numeric: true });
+      }
+    });
+  };
   return (
     <div className="card-wrap-eq">
       {eqStatus.map((item, index) => (
@@ -43,7 +54,7 @@ export const EqContent: FC<EqContentProps> = ({ eqStatus }) => {
           <div className="card-wrap-eq__table">
             <BaseTable
               headers={headersBunker}
-              contentArr={item.unit_equipment.filter(e => e.eq_type === 7)}
+              contentArr={sortEquipment(item.unit_equipment.filter(e => e.eq_type === 7))}
               keyNumberArr={keyNumberArr}
               keyPercentArr={keyPercentArr}
               keyDateArr={keyDateArr}
@@ -64,7 +75,7 @@ export const EqContent: FC<EqContentProps> = ({ eqStatus }) => {
           <div className="card-wrap-eq__table">
             <BaseTable
               headers={headersTA}
-              contentArr={item.unit_equipment.filter(e => e.eq_type === 6)}
+              contentArr={sortEquipment(item.unit_equipment.filter(e => e.eq_type === 6))}
               keyNumberArr={keyNumberArr}
               keyPercentArr={keyPercentArr}
               keyDateArr={keyDateArr}
