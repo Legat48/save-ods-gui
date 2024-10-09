@@ -1,4 +1,4 @@
-import { EmsDataType } from '../zod-scheme/ems';
+import { EmsDataType, EmsAttributeType } from '../zod-scheme/ems';
 import { HeaderState, eqStatusState , dataHubShemaState} from './interface';
 
 import { configureStore } from '@reduxjs/toolkit';
@@ -21,6 +21,8 @@ export interface AppState {
   eqStatus: eqStatusState;
   ems: {
     emsData: EmsDataType;
+    emsAttributes: EmsAttributeType;
+    emsAttributeAsObj: Record<number, EmsAttributeType>
   };
   dataHubShema: dataHubShemaState
 }

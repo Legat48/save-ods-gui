@@ -5,7 +5,6 @@ import { setHeaderTitle, setTitle, setShowHeader } from '../store/header';
 import { useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import HomeSvg from '../assets/svg/home.svg?react';
 import UsersSvg from '../assets/svg/users.svg?react';
 import SettingsSvg from '../assets/svg/settings.svg?react';
 import DateSvg from '../assets/svg/date.svg?react';

@@ -1,26 +1,26 @@
 import { FC, useState } from 'react';
-import { emsDataArr, EmsUnitObjType } from "../../zod-scheme/ems";
+import { EmsDataType, EmsUnitObjType } from "../../zod-scheme/ems";
 import { z } from 'zod';
 import { EmsWrapCard } from "./EmsWrapCard";
 import { Button } from '@mui/material';
 
 interface EmsProps {
-  emsData: z.infer<typeof emsDataArr>;
+  emsData: EmsDataType;
 }
 function selectColor(item: EmsUnitObjType, selectId: number) {
   let color = 'var(--color-btn-1)'
-  if (item.typeSteelId === selectId) {
+  if (item.steel_type_id === selectId) {
     color = 'var(--color-ready) !important'
   }
-  if (item.settingArr && item.settingArr.length === 0) {
+  if (!item.cards || (item.cards && item.cards.length === 0)) {
     color = 'var(--color-error) !important'
   }
   return color
 }
 
 export const EmsContent: FC<EmsProps> = ({ emsData }) => {
-  const [selectId, setSelectId] = useState(0);
-  const selectedItem = emsData ? emsData.find(e => e.typeSteelId === selectId) : null;
+  const [selectId, setSelectId] = useState(1);
+  const selectedItem = emsData ? emsData.find(e => e.steel_type_id === selectId) : null;
 
   return (
     <>
@@ -31,20 +31,20 @@ export const EmsContent: FC<EmsProps> = ({ emsData }) => {
           </h3>
           {emsData && emsData.map((item, indexItem) => (
             <Button
-              key={indexItem + `${item.typeSteelId}`}
+              key={indexItem + `${item.steel_type_id}`}
               onClick={() => {
-                setSelectId(item.typeSteelId)
+                setSelectId(item.steel_type_id)
               }}
               variant="outlined"
               size="large"
-              disabled={item.typeSteelId === selectId}
+              disabled={item.steel_type_id === selectId}
               sx={{
                 color: selectColor(item, selectId),
-                backgroundColor: item.typeSteelId === selectId ? 'var(--color-bg-white-1) !important' : '#fff',
+                backgroundColor: item.steel_type_id === selectId ? 'var(--color-bg-white-1) !important' : '#fff',
                 borderColor: selectColor(item, selectId),
               }}
             >
-              {item.nameSteel}
+              {item.steel_type_name}
             </Button>
           ))}
           <li className="ems__title-item"></li>

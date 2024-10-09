@@ -1,8 +1,6 @@
-import { labelArrItem, Process, rcProcess } from './interface';
+import { labelArrItem, Process, rcProcess, TableRow } from './interface';
 import { Heat } from '../../zod-scheme/heat';
-
 import { getUniversal } from '../../api/dataHub';
-import { useQuery } from "@tanstack/react-query";
 
 export function setHeat(heat: Heat): labelArrItem[] {
   return [
@@ -194,23 +192,37 @@ export function setHeat(heat: Heat): labelArrItem[] {
   ]
 }
 
-export function createNowArr(heatArr: Heat[]): any {
-  const arr = new Set<string>();
+export function createTable(heatArr: Heat[]): any {
+  const tableArr = new Set<TableRow>();
   heatArr.forEach((e) => {
-    if(e.processes) {
-      e.processes.forEach((p) => {
-        if (!p.proc_end) {
-          arr.add(e.heat_no);
-        }
-      })
+    tableArr.add(createTableRow(e));
+  });
+
+  // Приводим массив к типу, который у нас есть
+
+  const sortedArray = [...tableArr].sort((a, b) => {
+    // Теперь мы можем использовать as для указания типа
+    const aHeatNo = a.heat_no as number | string;
+    const bHeatNo = b.heat_no as number | string;
+
+    // Добавляем проверку на тип данных и соответствующую сортировку
+    if (typeof aHeatNo === 'number' && typeof bHeatNo === 'number') {
+      return -1 * (aHeatNo - bHeatNo);
+    } else if (typeof aHeatNo === 'string' && typeof bHeatNo === 'string') {
+      return -1 * aHeatNo.localeCompare(bHeatNo, 'ru-RU', { numeric: true });
+    } else {
+      return 0;
     }
   });
-  return arr;
+
+  return sortedArray;
 }
 
-export function createTableRow(heat: Heat): any {
+export function createTableRow(heat: Heat): TableRow {
   return {
     heat_no: heat.heat_no,
+    ROUTE_FACT_SCHED: heat.ROUTE_FACT_SCHED || '',
+    GRADE_LF: heat.GRADE_LF || '',
   }
 }
 

@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
 import { EmsContent } from '../components/EmsContent';
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setHeaderTitle, setTitle } from '../store/header';
 import EmsApi from '../api/ems';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { emsArrSchema } from "../zod-scheme/ems";
-import { setEmsDataStore } from '../store/ems';
+import { emsArrSchema, EmsAttributeSchemaType } from "../zod-scheme/ems";
+import { setEmsDataStore, setEmsAttributesStore } from '../store/ems';
 import { z } from 'zod';
 
 import { CircularProgress } from '@mui/material';
 
-export function EmsPage() {
+export const EmsPage = () => {
   const [emsData, setEmsData] = useState<any>([]);
+  const [attributeArr, setAttributeArr] = useState<EmsAttributeSchemaType[]>([]);
   const [error, setError] = useState('');
   const dispatch = useDispatch();
 
   const getEmsData = async ({ queryKey }: { queryKey: string[] }) => {
-    const [, lang] = queryKey;
-    const response = await EmsApi.getArr(lang);
+    // const [, lang] = queryKey;
+    const response = await EmsApi.getArr();
     return response;
   };
 
@@ -39,29 +40,10 @@ export function EmsPage() {
     if (data) {
       try {
         const result = emsArrSchema.parse(data);
-        const localEmsDataString = localStorage.getItem('emsData');
-        if (localEmsDataString) {
-          const localEmsData = JSON.parse(localEmsDataString);
-
-          const parseLocalResult = emsArrSchema.parse(localEmsData);
-          const localVersion = parseLocalResult.v ;
-          if (localVersion === result?.v) {
-
-            setEmsData(parseLocalResult.result.data);
-            dispatch(setEmsDataStore(parseLocalResult.result.data));
-          } else {
-
-            setEmsData(result.result.data);
-            dispatch(setEmsDataStore(result.result.data));
-            localStorage.setItem('emsData', JSON.stringify(result));
-          }
-
-        } else {
-
-          setEmsData(result.result.data);
-          dispatch(setEmsDataStore(result.result.data));
-          localStorage.setItem('emsData', JSON.stringify(result));
-        }
+        setAttributeArr(result.result.data.attributes);
+        setEmsData(result.result.data.steel_types);
+        dispatch(setEmsDataStore(result.result.data.steel_types));
+        dispatch(setEmsAttributesStore(result.result.data.attributes));
 
       } catch (err) {
         if (err instanceof z.ZodError) {
@@ -79,13 +61,13 @@ export function EmsPage() {
   }, [data, dispatch]);
 
   return (
-      <>
-        {isLoading && <div className='app__preloaded'><CircularProgress></CircularProgress></div>}
-        {isError && <div>Произошла ошибка: {error}</div>}
-        {emsData && (
-            <EmsContent emsData={emsData.typeSteelArr}></EmsContent>
-        )}
-      </>
+    <>
+      {isLoading && <div className='app__preloaded'><CircularProgress></CircularProgress></div>}
+      {isError && <div>Произошла ошибка: {error}</div>}
+      {emsData && (
+        <EmsContent emsData={emsData}></EmsContent>
+      )}
+    </>
   );
 }
 

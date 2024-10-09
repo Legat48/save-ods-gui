@@ -74,6 +74,8 @@ export interface LabelItem {
 
 export interface StatLabelProps {
   labelArr: LabelItem[];
+  setIsCurrentStats: any;
+  isCurrentStats: any;
 }
 
 // ----------------------------------------------------------------

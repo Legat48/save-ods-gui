@@ -3,10 +3,14 @@ import { Radio } from '@mui/material';
 import { RadioGroup } from '@mui/material';
 import { FormControlLabel } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { string } from 'zod';
 
 interface CardSwitchProps {
   initialValue: number;
-  valueText: string[];
+  attributeValues: {
+    value_id: number,
+    value_name: string,
+  }[];
   disabled: boolean;
   onChange: (newValue: number) => void;
 }
@@ -21,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const EmsSwitch: FC<CardSwitchProps> = ({ initialValue, valueText, disabled, onChange }) => {
+export const EmsSwitch: FC<CardSwitchProps> = ({ initialValue, attributeValues, disabled, onChange }) => {
   const classes = useStyles();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, newValue: string) => {
     if (!disabled) {
@@ -41,9 +45,9 @@ export const EmsSwitch: FC<CardSwitchProps> = ({ initialValue, valueText, disabl
         className={classes.radioGroup}
 
       >
-        {valueText.map((text, index) => {
+        {attributeValues.map((item, index) => {
           return (
-            <FormControlLabel key={index} value={index.toString()} control={<Radio />} label={text} disabled={disabled} />
+            <FormControlLabel key={index} value={item.value_id} control={<Radio />} label={item.value_name} disabled={disabled} />
           );
         })}
       </RadioGroup>

@@ -28,7 +28,7 @@ export function EqStatusPage() {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     retry: 0,
-    refetchInterval: 30000, // Обновлять данные каждую минуту
+    refetchInterval: 30000, // Обновлять данные каждые 30 секунд
     refetchIntervalInBackground: true // даже если вкладка не активна
   });
 

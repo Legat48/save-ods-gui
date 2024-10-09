@@ -19,3 +19,11 @@ export interface Process {
 }
 
 export type rcProcess = Omit<Process, 'operation'>;
+
+
+
+export interface TableRow {
+  heat_no: number | string;
+  ROUTE_FACT_SCHED: string;
+  GRADE_LF: string;
+}

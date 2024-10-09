@@ -25,7 +25,7 @@ export const JsonWrapInfo = () => {
   const [paramKey, setParamKey] = useState<any>(null)
   const [paramValue, setParamValue] = useState<any>()
   const [inputValue, setInputValue] = useState<any>({key: '', value: ''})
-  const [dateValue, setDateValue] = useState<any>({key: "", value: ""})
+  const [dateValues, setDateValues] = useState<any>({})
   const [error, setError] = useState('');
 
   const getMethodData = async ({ queryKey }: { queryKey: any[] }) => {
@@ -33,6 +33,13 @@ export const JsonWrapInfo = () => {
     const response = await getUniversal(methodName, params);
     return response;
   };
+  // const { isLoading, isError, data }: UseQueryResult<any> = useQuery({
+  //   queryKey: ['GetMetaData', [methodName, [{ key: 'timestamp', value: 0 }, { key: paramKey, value: paramValue }]]],
+  //   queryFn: getMethodData,
+  //   refetchOnWindowFocus: false,
+  //   refetchOnMount: false,
+  //   retry: 0,
+  // });
   const { isLoading, isError, data }: UseQueryResult<any> = useQuery({
     queryKey: ['GetMetaData', [methodName, [{ key: 'timestamp', value: 0 }, { key: paramKey, value: paramValue }]]],
     queryFn: getMethodData,
@@ -102,6 +109,12 @@ export const JsonWrapInfo = () => {
       copyToClipboard('Ошибка')
     }
   }
+  const handleDateChange = (key: any) => (date: any) => {
+    setDateValues((prev: any) => ({
+      ...prev,
+      [key]: date,
+    }));
+  }
   return (
     <div className="data-hub">
       <div className="data-hub__wrap-title">
@@ -131,7 +144,7 @@ export const JsonWrapInfo = () => {
       </div>
       <div className="data-hub__wrap">
         <h3 className="data-hub__title">Состав схемы:</h3>
-        {<div className='data-hub__wrap-inputs'><RenderInput selectedItem={selectedItem} inputValue={inputValue.value} handleInputChanges={handleInputChanges} handleInputChange={handleInputChange} /></div>}
+        {<div className='data-hub__wrap-inputs'><RenderInput selectedItem={selectedItem} inputValue={inputValue.value} dateValues={dateValues} handleInputChanges={handleInputChanges} handleInputChange={handleInputChange} /></div>}
         {isLoading && <div className='app__preloaded'><CircularProgress></CircularProgress></div>}
         {!isLoading && !error && fetchedData && (<div className="data-hub__scheme" style={{ maxWidth: '1300px', margin: '0 auto' }}>
           {Object.entries(fetchedData).map(([key, item]) => (

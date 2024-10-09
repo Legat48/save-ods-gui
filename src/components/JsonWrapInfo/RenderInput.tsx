@@ -12,6 +12,7 @@ interface Item {
 interface RenderInputProps {
   selectedItem: Item[];
   inputValue: string;
+  dateValues: any;
   handleInputChanges: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleInputChange: ( paramName: any) => void;
 }
@@ -19,6 +20,7 @@ interface RenderInputProps {
 const RenderInput: React.FC<RenderInputProps> = ({
   selectedItem,
   inputValue,
+  dateValues,
   handleInputChanges,
   handleInputChange
 }) => {
@@ -52,6 +54,7 @@ const RenderInput: React.FC<RenderInputProps> = ({
                 <DateTimePicker
                   ampm={false}
                   format="DD/MM/YY HH:mm"
+                  value={dateValues[item.paramName]}
                 />
               </LocalizationProvider>
             ) : (

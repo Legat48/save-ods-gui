@@ -1,6 +1,4 @@
-import { numberFormat } from '../../utils/numberFormat';
 import { Heat } from '../../zod-scheme/heat';
-import { sortArray } from '../BaseTable/sortArray';
 
 interface TableRow {
   heat_no: number | string;

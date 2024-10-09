@@ -1,6 +1,5 @@
 import React from 'react';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import {ToggleButton, ToggleButtonGroup} from '@mui/material';
 
 interface Button {
   value: string | number; // значение кнопки, может быть строкой или числом

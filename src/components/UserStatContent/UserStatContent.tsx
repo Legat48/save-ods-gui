@@ -11,9 +11,11 @@ import { LabelItem, OptionUser, TableItem } from './interface';
 // Извлечение типа из схемы
 interface DataProps {
   data: any
+  setIsCurrentStats: any;
+  isCurrentStats: any;
 }
 
-export const UserStatContent: FC<DataProps> = ({ data }) => {
+export const UserStatContent: FC<DataProps> = ({ data, setIsCurrentStats, isCurrentStats }) => {
   const keyNumberArr: string[] = ['totalCalls', 'totalMethod', 'totalInvalidCalls'];
   const keyPercentArr: string[] = [];
   const keyDateArr: string[] = [];
@@ -69,14 +71,14 @@ export const UserStatContent: FC<DataProps> = ({ data }) => {
   return (
     <div className="stat-wrap">
       <div className="stat-wrap__top-wrap">
-        {generalInfo && <StatLabel labelArr={generalInfo} />}
+        {generalInfo && <StatLabel labelArr={generalInfo} setIsCurrentStats={setIsCurrentStats} isCurrentStats={isCurrentStats}/>}
       </div>
       <div className="stat-wrap__bot-wrap">
         {
           usersTableInfo.length &&
           <div className="stat-wrap__bot-sub-wrap">
             <BaseTable
-              maxHeight={`75vh`}
+              maxHeight={`calc(100vh - (var(--height-header) + 4px) - 117px)`}
               headers={headersUser}
               contentArr={usersTableInfo}
               keyNumberArr={keyNumberArr}

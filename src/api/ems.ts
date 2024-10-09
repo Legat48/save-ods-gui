@@ -1,6 +1,9 @@
 
+import { apiUrl } from './index'
+
+
 class EmsApi {
-  async getArr(lang:string) {
+  async getArr() {
     const head: RequestInit = {
       method: 'POST',
       headers: {
@@ -17,10 +20,9 @@ class EmsApi {
     };
 
     try {
-      // const response = await fetch(`${apiUrl}DataHub/DataHubSrv`, head);
-      const response = await fetch(`/ods/ems-setting.json`);
+      const response = await fetch(`${apiUrl}DataHub/DataHubSrv`, head);
       const responseData = await response.json();
-      return responseData; // для офлайн разработки
+      return responseData
     } catch (error) {
       console.error(error);
       throw error;

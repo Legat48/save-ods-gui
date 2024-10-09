@@ -18,7 +18,7 @@ export const Header = () => {
           {headerTitle}
         </Link>
         <div className="header__version">
-          v.1.2.3
+          v.1.2.7
         </div>
       </div>
     </div>

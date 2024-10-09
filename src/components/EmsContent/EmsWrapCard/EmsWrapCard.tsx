@@ -15,10 +15,10 @@ export const EmsWrapCard: FC<EmsProps> = ({ emsUnitObjType, steelGradeId }) => {
   return (
     <div className="card-wrap-ems">
       <div className="card-wrap-ems__wrap">
-        {emsUnitObjType.settingArr && emsUnitObjType.settingArr.length > 0 && emsUnitObjType.settingArr.map((card, indexCard) => (
+        {emsUnitObjType.cards && emsUnitObjType.cards.length > 0 && emsUnitObjType.cards.map((card, indexCard) => (
           <EmsCard card={card} key={indexCard + `${steelGradeId}`} steelGradeId={steelGradeId} />
         ))}
-        {emsUnitObjType.settingArr && emsUnitObjType.settingArr.length === 0 && (
+        {(!emsUnitObjType.cards || emsUnitObjType.cards && emsUnitObjType.cards.length === 0) && (
           <div className="card-wrap-ems__error">
             <div className="">
               Для выбранного типа стали нет предсозданных настроек.
